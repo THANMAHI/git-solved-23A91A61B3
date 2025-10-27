@@ -1,36 +1,26 @@
+
+---
+
+## 🟣 4️⃣ `scripts/deploy.sh`
+```bash
 #!/bin/bash
-set -e
+# Deployment script for production and development environments
 
-# Multi-Environment Deploy Script
-# Default to production if not specified
-DEPLOY_ENV=${DEPLOY_ENV:-production}
-
-echo "====================================="
-echo "DevOps Simulator - Deployment"
-echo "====================================="
+echo "Starting deployment..."
 
 if [ "$DEPLOY_ENV" = "production" ]; then
-    echo "Mode: Production"
-    DEPLOY_REGION="us-east-1"
-    APP_PORT=8080
-    echo "Environment: $DEPLOY_ENV"
-    echo "Region: $DEPLOY_REGION"
-    echo "Port: $APP_PORT"
-    echo "Starting production deployment..."
-    
-elif [ "$DEPLOY_ENV" = "development" ]; then
-    echo "Mode: Development"
-    DEPLOY_MODE="docker-compose"
-    APP_PORT=3000
-    echo "Environment: $DEPLOY_ENV"
-    echo "Mode: $DEPLOY_MODE"
-    echo "Installing dependencies..."
-    npm install
-    echo "Starting development server..."
-    
+  echo "Deploying to production environment..."
+  docker compose -f docker-compose.yml up -d
+  echo "Production deployment complete!"
 else
-    echo "Error: Unknown environment $DEPLOY_ENV"
-    exit 1
+  echo "Deploying to development environment..."
+  npm install
+  npm run dev
+  echo "Development deployment complete!"
 fi
 
-echo "Deployment completed successfully!"
+# Experimental: commented out AI-based deployment logic
+# echo "Running AI optimizer for predictive scaling..."
+# python3 scripts/ai_optimizer.py
+
+echo "Deployment finished."
