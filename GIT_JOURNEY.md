@@ -82,48 +82,47 @@ merge conflicts across multiple branches using proper Git workflows.
 
 ### Merge 2: main + conflict-simulator (6 files)
 
-#### Conflict 1: src/api/server.js
-- **Issue**: Different server initialization methods (Express vs. custom HTTP)
-- **Resolution**:Retained Express setup for better scalability and middleware support
-- **Strategy**: Integrated custom logger from conflict-simulator into Express app
-- **Difficulty**: Medium
-- **Time**: 12 minutes
+#### Conflict 1: config/app-config.yaml  
+- *Issue*: Main branch contained production parameters, while conflict-simulator introduced testing configurations for simulated runs.  
+- *Resolution*: Integrated both by allowing configuration toggling between production and simulator modes.  
+- *Strategy*: Added an environmentMode variable to manage settings dynamically.  
+- *Difficulty*: Medium  
+- *Time*: 15 minutes  
 
-#### Conflict 2:src/utils/logger.js
-- **Issue**: One branch used console.log, the other used Winston library
-- **Resolution**:Kept Winston for structured logging, added console fallback
-- **Strategy**: Unified both loggers using environment variable toggle
-- **Difficulty**: Medium
-- **Time**: 8 minutes
+#### Conflict 2: config/database-config.json  
+- *Issue*: Database hosts and credentials differed for simulator and production setups.  
+- *Resolution*: Combined both configurations using environment-based profile separation.  
+- *Strategy*: Introduced SIMULATION_DB and PRODUCTION_DB keys for clear context switching.  
+- *Difficulty*: Medium  
+- *Time*: 10 minutes  
 
-#### Conflict 3: scripts/test-runner.sh
-- **Issue**: Different testing commands (Jest vs. Mocha)
-- **Resolution**: Adopted Jest for consistency with existing pipeline
-- **Strategy**: Updated script with conditional test runner variable
-- **Difficulty**: Medium-High
-- **Time**: 15 minutes
+#### Conflict 3: docs/architecture.md  
+- *Issue*: The main branch contained finalized architectural flow, while conflict-simulator added experimental testing components.  
+- *Resolution*: Merged both by adding a subsection highlighting simulated workflow integration.  
+- *Strategy*: Retained existing structure but appended simulator architecture as an optional section.  
+- *Difficulty*: Easy  
+- *Time*: 8 minutes  
 
-#### Conflict 4: docs/README.md
-- **Issue**: Different instructions for setting up local environment
-- **Resolution**: Merged both and organized into clear step-by-step guide
-- **Strategy**:Used sub-headings for each environment (local vs. production)
-- **Difficulty**: Easy
-- **Time**: 7 minutes
+#### Conflict 4: scripts/deploy.sh  
+- *Issue*: Deployment logic conflicted — main handled live deployment, simulator branch had test-run automation.  
+- *Resolution*: Unified both using conditional logic to detect runtime mode and deploy accordingly.  
+- *Strategy*: Added a shell condition checking $MODE (production/simulator).  
+- *Difficulty*: Hard  
+- *Time*: 20 minutes  
 
-#### Conflict 5: docs/settings.json
-- **Issue**: Contradictory feature-toggle values (feature X enabled in one, disabled in other)
-- **Resolution**: Enabled feature X by default, with option to disable via .env
-- **Strategy**: Added environment-specific overrides
-- **Difficulty**: Medium
-- **Time**: 10 minutes
+#### Conflict 5: scripts/monitor.js  
+- *Issue*: Simulator branch logged mock metrics, while main monitored real-time data.  
+- *Resolution*: Integrated both logging systems using an environment-based flag.  
+- *Strategy*: Added an if-statement checking process.env.MODE to switch log sources dynamically.  
+- *Difficulty*: Medium  
+- *Time*: 12 minutes  
 
-#### Conflict 6: README.md
-- **Issue**: Different feature lists and version numbers
-- **Resolution**: Combined all features with clear environment labels
-- **Strategy**: Organized features by category
-- **Difficulty**: Easy
-- **Time**: 10 minutes
-
+#### Conflict 6: README.md  
+- *Issue*: Both branches had overlapping setup and feature descriptions.  
+- *Resolution*: Merged all sections, preserving stable documentation while including a new “Simulation Mode” section.  
+- *Strategy*: Retained production instructions at the top and appended simulation usage details separately.  
+- *Difficulty*: Easy  
+- *Time*: 10 minutes
 ## Most Challenging Parts
 
 1. **Understanding Conflict Markers**: Initially confused by `<<<<<<<`, `=======`, `>>>>>>>` symbols. Learned that HEAD is current branch and the other side is incoming changes.
