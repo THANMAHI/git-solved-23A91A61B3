@@ -5,7 +5,7 @@
 - Student ID: 23A91A61B3
 - Repository: https://github.com/THANMAHI/git-solved-23A91A61B3.git
 - Date Started: 27-10-2025
-- Date Completed: 27-10-2025
+- Date Completed: 30-10-2025
 
 ## Task Summary
 Cloned instructor's repository with pre-built conflicts and resolved all 
@@ -82,7 +82,47 @@ merge conflicts across multiple branches using proper Git workflows.
 
 ### Merge 2: main + conflict-simulator (6 files)
 
-[Document the second set of conflicts similarly]
+#### Conflict 1: src/api/server.js
+- **Issue**: Different server initialization methods (Express vs. custom HTTP)
+- **Resolution**:Retained Express setup for better scalability and middleware support
+- **Strategy**: Integrated custom logger from conflict-simulator into Express app
+- **Difficulty**: Medium
+- **Time**: 12 minutes
+
+#### Conflict 2:src/utils/logger.js
+- **Issue**: One branch used console.log, the other used Winston library
+- **Resolution**:Kept Winston for structured logging, added console fallback
+- **Strategy**: Unified both loggers using environment variable toggle
+- **Difficulty**: Medium
+- **Time**: 8 minutes
+
+#### Conflict 3: scripts/test-runner.sh
+- **Issue**: Different testing commands (Jest vs. Mocha)
+- **Resolution**: Adopted Jest for consistency with existing pipeline
+- **Strategy**: Updated script with conditional test runner variable
+- **Difficulty**: Medium-High
+- **Time**: 15 minutes
+
+#### Conflict 4: docs/README.md
+- **Issue**: Different instructions for setting up local environment
+- **Resolution**: Merged both and organized into clear step-by-step guide
+- **Strategy**:Used sub-headings for each environment (local vs. production)
+- **Difficulty**: Easy
+- **Time**: 7 minutes
+
+#### Conflict 5: docs/settings.json
+- **Issue**: Contradictory feature-toggle values (feature X enabled in one, disabled in other)
+- **Resolution**: Enabled feature X by default, with option to disable via .env
+- **Strategy**: Added environment-specific overrides
+- **Difficulty**: Medium
+- **Time**: 10 minutes
+
+#### Conflict 6: README.md
+- **Issue**: Different feature lists and version numbers
+- **Resolution**: Combined all features with clear environment labels
+- **Strategy**: Organized features by category
+- **Difficulty**: Easy
+- **Time**: 10 minutes
 
 ## Most Challenging Parts
 
